@@ -15,6 +15,12 @@ Refer to `openapi.yaml` for the API specification. This file contains all the ne
 
 ## Running the Application
 
+Install the required dependencies using the following command:
+
+```bash
+pip install -r requirements.txt
+```
+
 To run the main application:
 
 ```bash
