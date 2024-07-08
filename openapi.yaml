@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: QuickML 3.0
+  description: |-
+    This is a sample QuickML Server based on the OpenAPI 3.0 specification.
+  version: 1.0.11
+servers:
+  - url: http://127.0.0.1:5000
+paths:
+  /process_data:
+    post:
+      summary: Process data with specified preprocessing options
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                null_handling:
+                  type: string
+                  description: How to handle null values for numerical columns
+                  enum: [drop, mean, median, constant]
+                null_constant:
+                  type: number
+                  description: Constant value to replace nulls if null_handling is 'constant'
+                null_handling_categorical:
+                  type: string
+                  description: How to handle null values for categorical columns
+                  enum: [drop, mode, constant]
+                null_categorical_constant:
+                  type: string
+                  description: Constant value to replace nulls in categorical columns if null_handling_categorical is 'constant'
+                scaling:
+                  type: string
+                  description: Type of scaling to apply
+                  enum: [standard, minmax]
+                categorical_handling:
+                  type: string
+                  description: How to handle categorical variables
+                  enum: [onehot, label]
+                target:
+                  type: string
+                  description: Name of the target column
+      responses:
+        200:
+          description: Data processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  filename:
+                    type: string
+                  target:
+                    type: string
+                  test_file_path:
+                    type: string
+  /model_selection:
+    post:
+      summary: Select and train a model based on the provided type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: Type of model to train
+                  enum: [linear, random_forest, knn, logistic]
+                target:
+                  type: string
+                  description: Name of the target column
+      responses:
+        200:
+          description: Model trained successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  model_file:
+                    type: string
+  /model_trained:
+    get:
+      summary: Get predictions from the trained model
+      responses:
+        200:
+          description: Model predictions generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  predictions_file:
+                    type: string
