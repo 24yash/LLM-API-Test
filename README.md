@@ -10,6 +10,7 @@ Refer to `openapi.yaml` for the API specification. This file contains all the ne
 
 - `app.py`: The main application file where the streamlit server is initialized.
 - `apis.py`: Contains all the API endpoint definitions.
+- `try folder`: Contains the test files for uploading csvs.
 
 **Note:** Files not mentioned are for testing and experimentation purposes and can be ignored.
 
